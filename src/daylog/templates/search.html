@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Zoeken · daylog{% endblock %}
+{% block content %}
+<h1>Zoeken</h1>
+{% if results is none %}
+<p class="muted">Zoek op woorden uit gesprekken, titels of samenvattingen.</p>
+{% else %}
+  {% if results.conversations %}<h2>Gesprekken</h2>{% endif %}
+  {% for c in results.conversations %}
+  <a class="card" style="display:block;color:inherit;text-decoration:none" href="/c/{{ c.id }}">
+    <div class="muted">{{ c.day }} · {{ c.start_at|hm }}{% if c.place %} · {{ c.place }}{% endif %}</div>
+    <h2>{{ c.title }}</h2>
+  </a>
+  {% endfor %}
+  {% if results.segments %}<h2 style="margin-top:16px">Fragmenten</h2>{% endif %}
+  {% for s in results.segments %}
+  <a class="card" style="display:block;color:inherit;text-decoration:none"
+     href="{% if s.conversation_id %}/c/{{ s.conversation_id }}#s{{ s.id }}{% else %}#{% endif %}">
+    <div class="muted">{{ s.start_at[:10] }} {{ s.start_at|hm }} · {{ names.get(s.speaker_id, "Onbekend") }}
+      {% if s.conversation_title %} · {{ s.conversation_title }}{% endif %}</div>
+    <div>{{ s.snippet|mark }}</div>
+  </a>
+  {% endfor %}
+  {% if not results.conversations and not results.segments %}<p>Niets gevonden.</p>{% endif %}
+{% endif %}
+{% endblock %}

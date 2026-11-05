@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Logboek</h1>
+<p class="muted">
+  Chunks: {{ stats.get('done', 0) }} verwerkt · {{ stats.get('pending', 0) }} in de wachtrij
+  · {{ stats.get('empty', 0) }} zonder spraak · {{ stats.get('failed', 0) }} mislukt
+</p>
+{% for d in days %}
+<a class="card" style="display:block;color:inherit;text-decoration:none" href="/day/{{ d.day }}">
+  <h2>{{ d.day }} <span class="muted">· {{ d.n }} gesprekken</span></h2>
+  {% if d.summary %}<p>{{ d.summary }}</p>{% endif %}
+</a>
+{% else %}
+<p>Nog niets verwerkt. Draai <code>make process</code> nadat de telefoon iets heeft geüpload.</p>
+{% endfor %}
+{% endblock %}

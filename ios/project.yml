@@ -1,0 +1,26 @@
+# XcodeGen-spec: `xcodegen generate` maakt hier DayLog.xcodeproj van.
+name: DayLog
+options:
+  bundleIdPrefix: nl.vanwely
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  DayLog:
+    type: application
+    platform: iOS
+    sources: [DayLog]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: nl.vanwely.daylog
+        SWIFT_VERSION: "5.0"
+        DEVELOPMENT_TEAM: ""   # vul je Apple Developer Team ID in
+        TARGETED_DEVICE_FAMILY: "1"
+    info:
+      path: DayLog/Info.plist
+      properties:
+        CFBundleDisplayName: DayLog
+        UILaunchScreen: {}
+        UIBackgroundModes: [audio]
+        NSMicrophoneUsageDescription: DayLog neemt op wanneer jij de opname aanzet.
+        NSLocationWhenInUseUsageDescription: DayLog koppelt een globale plek aan opnames.
+        NSLocationAlwaysAndWhenInUseUsageDescription: DayLog koppelt ook op de achtergrond een globale plek aan opnames.

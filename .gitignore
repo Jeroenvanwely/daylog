@@ -1,0 +1,13 @@
+.env
+data/
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+# iOS (project wordt gegenereerd door XcodeGen)
+ios/*.xcodeproj
+ios/build/
+xcuserdata/
+.DS_Store

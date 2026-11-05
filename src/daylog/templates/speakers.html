@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Sprekers · daylog{% endblock %}
+{% block content %}
+<h1>Sprekers</h1>
+<p class="muted">Geef herkende stemmen een naam, markeer jezelf, of voeg dubbele samen.
+  Titels en samenvattingen pakken nieuwe namen op bij <code>daylog resummarize</code>.</p>
+{% for sp in speakers %}
+<div class="card">
+  <h2>{{ names[sp.id] }}{% if sp.is_me %} <span class="tag">ik</span>{% endif %}</h2>
+  <div class="muted">#{{ sp.id }} · {{ sp.n_segments }} fragmenten · laatst {{ (sp.last_seen or '')[:10] }}</div>
+  <form method="post" action="/speakers/{{ sp.id }}" class="row">
+    <input type="hidden" name="action" value="rename">
+    <input type="text" name="name" value="{{ sp.name or '' }}" placeholder="Naam">
+    <button>Opslaan</button>
+  </form>
+  <div class="row">
+    {% if not sp.is_me %}
+    <form method="post" action="/speakers/{{ sp.id }}"><input type="hidden" name="action" value="me">
+      <button>Dit ben ik</button></form>
+    {% endif %}
+    <form method="post" action="/speakers/{{ sp.id }}" class="row" style="margin:0">
+      <input type="hidden" name="action" value="merge">
+      <select name="into">
+        {% for other in speakers if other.id != sp.id %}
+        <option value="{{ other.id }}">{{ names[other.id] }}</option>
+        {% endfor %}
+      </select>
+      <button>Samenvoegen in</button>
+    </form>
+  </div>
+</div>
+{% else %}
+<p>Nog geen sprekers.</p>
+{% endfor %}
+{% endblock %}

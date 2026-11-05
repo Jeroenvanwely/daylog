@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ c.title or "Gesprek" }} · daylog{% endblock %}
+{% block content %}
+<p class="muted"><a href="/day/{{ c.day }}">{{ c.day }}</a> · {{ c.start_at|hm }}–{{ c.end_at|hm }}
+  {% if c.place %} · {{ c.place }}{% elif c.lat %} · {{ '%.4f'|format(c.lat) }}, {{ '%.4f'|format(c.lon) }}{% endif %}</p>
+<h1>{{ c.title or "Gesprek zonder titel" }}</h1>
+{% if c.summary %}<div class="card">{{ c.summary }}</div>{% endif %}
+{% for s in segments %}
+<div class="seg" id="s{{ s.id }}">
+  <span class="muted">{{ s.start_at|hm }}</span>
+  <div><span class="who">{{ names.get(s.speaker_id, "Onbekend") }}:</span> {{ s.text }}</div>
+</div>
+{% endfor %}
+{% endblock %}

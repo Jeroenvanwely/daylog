@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Houdt de upload-API + webview draaiend.
+     Pas het pad aan, kopieer naar ~/Library/LaunchAgents/ en laad met:
+     launchctl load ~/Library/LaunchAgents/nl.daylog.serve.plist -->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>nl.daylog.serve</string>
+  <key>WorkingDirectory</key><string>/Users/YOU/code/daylog</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/uv</string><string>run</string><string>daylog</string><string>serve</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/tmp/daylog-serve.log</string>
+  <key>StandardErrorPath</key><string>/tmp/daylog-serve.log</string>
+</dict>
+</plist>

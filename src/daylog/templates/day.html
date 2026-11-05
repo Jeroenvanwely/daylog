@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ day }} · daylog{% endblock %}
+{% block content %}
+<h1>{{ day }}</h1>
+{% if summary %}<div class="card"><p style="margin:0">{{ summary }}</p></div>{% endif %}
+{% for c in conversations %}
+<a class="card" style="display:block;color:inherit;text-decoration:none" href="/c/{{ c.id }}">
+  <div class="muted">{{ c.start_at|hm }}–{{ c.end_at|hm }}{% if c.place %} · {{ c.place }}{% endif %}</div>
+  <h2>{{ c.title or "Gesprek zonder titel" }}</h2>
+  {% if c.summary %}<p style="margin:6px 0">{{ c.summary }}</p>{% endif %}
+  {% for t in c.tags|tags %}<span class="tag">{{ t }}</span>{% endfor %}
+</a>
+{% endfor %}
+{% endblock %}
